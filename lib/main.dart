@@ -1,4 +1,5 @@
 import 'package:cibi/src/cibi/presentation/screens/cibi_loading_screen.dart';
+import 'package:cibi/src/cibi/presentation/screens/signup_screen.dart';
 import 'package:cibi/src/cibi/presentation/screens/splash_screen.dart';
 import 'package:cibi/src/cibi/routes/router.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: SplashScreen(),
+      home: SignUp(),
     );
   }
 }

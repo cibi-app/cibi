@@ -1,3 +1,4 @@
+import 'package:cibi/src/cibi/constants.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -92,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
           MaterialButton(
             onPressed: () {},
@@ -100,14 +101,14 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               width: size.width,
               height: 70,
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Get Started",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
               decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: AppColors.primary,
                   borderRadius: BorderRadius.circular(20)),
             ),
           ),
