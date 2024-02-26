@@ -38,6 +38,7 @@ dependencies:
   page_transition: ^2.1.0
   flutter_riverpod: ^2.4.10
   flutter_svg: ^2.0.9
+  country_picker: ^2.0.24
 
 dev_dependencies:
   flutter_test:
