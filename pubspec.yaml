@@ -39,6 +39,7 @@ dependencies:
   flutter_riverpod: ^2.4.10
   flutter_svg: ^2.0.9
   country_picker: ^2.0.24
+  pinput: ^4.0.0
 
 dev_dependencies:
   flutter_test:

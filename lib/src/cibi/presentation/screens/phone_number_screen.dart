@@ -13,6 +13,9 @@ class PhoneNumberScreen extends StatefulWidget {
 
 class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   Country _selectedCountry = Country.worldWide;
+  TextEditingController phone = TextEditingController();
+  bool invalidNumber = false;
+  bool invalidCountry = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +27,17 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
           style: TextStyle(
               color: AppColors.black,
               fontWeight: FontWeight.bold,
-              fontSize: 25),
+              fontSize: 30),
         ),
         Text(
           "Enter your phone number,We will",
           style: TextStyle(
-              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 12),
+              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 16),
         ),
         Text(
           "send you a confirmation code there.",
           style: TextStyle(
-              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 12),
+              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 16),
         ),
         const SizedBox(height: 25),
         Row(
@@ -97,53 +100,83 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       ],
                     ),
                   ),
-                )
+                ),
+                Text(
+                  !invalidCountry ? "" : "Invalid Country Code",
+                  style: const TextStyle(fontSize: 15, color: Colors.red),
+                ),
               ],
             ),
             const SizedBox(width: 10),
-            Container(
-              height: 60,
-              width: size.width / 1.8,
-              margin: const EdgeInsets.only(top: 20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.grey.shade400,
-                    width: 1,
-                  )),
-              child: Center(
-                child: TextField(
-                  keyboardType:
-                      TextInputType.number, // Set keyboard type to number
-                  maxLength: 10, // Limit the maximum length to 10 digits
-                  decoration: InputDecoration(
-                    hintText: "Mobile number",
-                    counterText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none, // No border line
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none, // No border line
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none, // No border line
+            Column(
+              children: [
+                Container(
+                  height: 60,
+                  width: size.width / 1.8,
+                  margin: const EdgeInsets.only(top: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.grey.shade400,
+                        width: 1,
+                      )),
+                  child: Center(
+                    child: TextField(
+                      controller: phone,
+                      keyboardType:
+                          TextInputType.number, // Set keyboard type to number
+                      maxLength: 10, // Limit the maximum length to 10 digits
+                      decoration: InputDecoration(
+                        hintText: "Mobile number",
+                        counterText: '',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide.none, // No border line
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide.none, // No border line
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide.none, // No border line
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                Text(
+                  !invalidNumber ? "" : "Invalid Phone Number",
+                  style: const TextStyle(fontSize: 15, color: Colors.red),
+                ),
+              ],
             ),
           ],
         ),
         const Spacer(),
         InkWell(
           onTap: () {
-            widget.pageController.nextPage(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.ease,
-            );
+            print(_selectedCountry.countryCode);
+            if (phone.text.trim().length != 10) {
+              setState(() {
+                invalidNumber = true;
+                invalidCountry = false;
+              });
+            } else if (_selectedCountry.countryCode == "WW") {
+              setState(() {
+                invalidCountry = true;
+                invalidNumber = false;
+              });
+            } else {
+              setState(() {
+                invalidCountry = false;
+                invalidNumber = false;
+              });
+              widget.pageController.nextPage(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.ease,
+              );
+            }
           },
           child: Container(
             height: 60,

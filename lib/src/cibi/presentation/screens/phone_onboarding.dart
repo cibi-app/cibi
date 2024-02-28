@@ -12,7 +12,7 @@ class PhoneOnboaring extends StatefulWidget {
 
 class _PhoneOnboaringState extends State<PhoneOnboaring> {
   PageController _pageController = PageController(initialPage: 0);
-  double _progress = 0.0; // Initial progress value
+  double _progress = 1.0; // Initial progress value
   int _currentPage = 0;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,13 @@ class _PhoneOnboaringState extends State<PhoneOnboaring> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_currentPage > 0) {
+                            _pageController.previousPage(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeInOut);
+                          }
+                        },
                         icon: Icon(
                           Icons.arrow_back,
                           color: AppColors.black,
@@ -65,7 +71,7 @@ class _PhoneOnboaringState extends State<PhoneOnboaring> {
                     itemBuilder: (BuildContext context, int index) {
                       return index == 0
                           ? PhoneNumberScreen(pageController: _pageController)
-                          : OTPScreen();
+                          : OTPPage();
                     },
                   ),
                 ),
